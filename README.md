@@ -32,7 +32,7 @@ This project is a simple REST API created with Spring Boot that allows managing 
 
 ### 1. DELETE /api/users/delete/{id}
 
-Update a user. The request body must contain the user ID details in JSON format.
+Delete a user. The request body must contain the user ID details in JSON format.
 DELETE request example:
 ```bash
 DELETE /api/users/delete/{id} Content-Type: application/json
