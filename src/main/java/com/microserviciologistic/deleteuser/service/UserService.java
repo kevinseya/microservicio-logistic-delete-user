@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -20,7 +21,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(UUID userId) {
         try {
             Optional<User> existingUser = userRepository.findById(userId);
             if (existingUser.isPresent()) {
