@@ -27,9 +27,13 @@ public class UserService {
 
     public void deleteUser(UUID userId) {
         try {
+            System.out.println(userId);
             Optional<User> existingUser = userRepository.findById(userId);
             if (existingUser.isPresent()) {
-                userRepository.deleteById(userId);
+                User user = existingUser.get();
+                System.out.println(user.getId());
+                user.setActive(false);
+                userRepository.save(user);
                 System.out.println("Enviando evento WebSocket para creación de usuario...");
                 webSocketClientService.sendEvent("DELETE", userId);
 
