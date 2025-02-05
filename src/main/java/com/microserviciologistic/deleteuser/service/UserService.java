@@ -16,9 +16,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final WebSocketClientService webSocketClientService;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, WebSocketClientService webSocketClientService) {
         this.userRepository = userRepository;
+        this.webSocketClientService = webSocketClientService;
+
     }
 
     public void deleteUser(UUID userId) {
@@ -26,6 +30,9 @@ public class UserService {
             Optional<User> existingUser = userRepository.findById(userId);
             if (existingUser.isPresent()) {
                 userRepository.deleteById(userId);
+                System.out.println("Enviando evento WebSocket para creación de usuario...");
+                webSocketClientService.sendEvent("DELETE", userId);
+
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario con id " + userId + " no encontrado");
             }
