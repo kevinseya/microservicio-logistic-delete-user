@@ -61,6 +61,6 @@ jobs:
             # Ejecutar nuevo contenedor
             sudo docker run -d --name logistic_delete_user \
               --env-file .env \
-              -p 8082:8082 \
+              -p 8083:8083 \
               kevinseya/logistic_delete_user:latest
           EOF
