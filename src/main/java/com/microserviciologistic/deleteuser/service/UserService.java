@@ -32,10 +32,10 @@ public class UserService {
             if (existingUser.isPresent()) {
                 User user = existingUser.get();
                 System.out.println(user.getId());
-                user.setActive(false);
+                userRepository.softDeleteUser(userId);
                 userRepository.save(user);
-                System.out.println("Enviando evento WebSocket para creación de usuario...");
-                webSocketClientService.sendEvent("DELETE", userId);
+                System.out.println("Enviando evento WebSocket para eliminación de usuario...");
+                webSocketClientService.sendEvent("DELETE", user);
 
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario con id " + userId + " no encontrado");
